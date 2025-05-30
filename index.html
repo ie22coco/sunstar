@@ -3,33 +3,45 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Sunstar 日月星牌占卜系統</title>
+  <title>Sunstar 日月星占卜系統</title>
   <style>
     body {
       font-family: sans-serif;
       padding: 2rem;
-      background-color: #fefefe;
-      max-width: 600px;
+      background-color: #f9f9f9;
+      max-width: 700px;
       margin: auto;
     }
     h1 {
       text-align: center;
-    }
-    .result {
-      margin-top: 2rem;
+      font-size: 2rem;
+      margin-bottom: 1rem;
     }
     button {
       padding: 10px 20px;
       font-size: 1rem;
       margin: 10px 5px;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 2rem;
+      background: #fff;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    ul {
+      padding-left: 1.2rem;
     }
   </style>
 </head>
 <body>
   <h1>🔮 Sunstar 日月星占卜系統</h1>
-  <p>請選擇要抽幾張牌：</p>
-  <button onclick="drawCards(3)">抽 3 張</button>
-  <button onclick="drawCards(5)">抽 5 張</button>
+  <p style="text-align: center;">請選擇要抽幾張牌：</p>
+  <div style="text-align: center;">
+    <button onclick="drawCards(3)">抽 3 張</button>
+    <button onclick="drawCards(5)">抽 5 張</button>
+  </div>
 
   <div class="result" id="result"></div>
 
@@ -46,4 +58,59 @@
       { name: "貓咪牌", meaning: "觀察者、神秘、可愛又警覺" },
       { name: "刀牌", meaning: "衝突、割捨、突發事件" },
       { name: "床牌", meaning: "親密、休息、身體交流" },
-      {
+      { name: "老鷹牌", meaning: "高視野、獵捕、目標明確" },
+      { name: "嬰兒牌", meaning: "新開始、純真、潛力" },
+      { name: "狼牌", meaning: "本能、野性、直覺行動" },
+      { name: "獅子牌", meaning: "力量、主導、勇氣與領導" },
+      { name: "星星牌", meaning: "希望、靈感、未來的導引" },
+      { name: "審判牌", meaning: "決定、命運的審視、轉捩點" },
+      { name: "狗狗牌", meaning: "忠誠、友誼、安全依靠" },
+      { name: "法院牌", meaning: "正義、公平、法律與裁決" },
+      { name: "花園牌", meaning: "社交、多人互動、公開空間" },
+      { name: "休止符牌", meaning: "結束、停頓、情緒暫歇" },
+      { name: "選擇路口牌", meaning: "選擇、抉擇點、多條道路" },
+      { name: "老鼠牌", meaning: "焦慮、耗損、小人、病氣" },
+      { name: "愛心牌", meaning: "戀愛、喜歡、情感流動" },
+      { name: "春天牌", meaning: "萌芽、希望、新計劃的開始" },
+      { name: "度假村牌", meaning: "放鬆、旅行、享受生活" },
+      { name: "信封牌", meaning: "訊息、邀請、秘密揭露" },
+      { name: "男人牌", meaning: "男性角色、對象、主角之一" },
+      { name: "女人牌", meaning: "女性角色、對象、主角之一" },
+      { name: "錢幣袋牌", meaning: "財富、收穫、現實物質" },
+      { name: "太陽牌", meaning: "成功、光明、能量與勝利" },
+      { name: "月亮牌", meaning: "情緒、直覺、感受與變化" },
+      { name: "豐盛牌", meaning: "豐收、滿足、物質與心靈雙贏" },
+      { name: "稻米牌", meaning: "糧食、穩定收入、積累" },
+      { name: "夏天牌", meaning: "旺盛期、開展、成長時刻" },
+      { name: "業力牌", meaning: "因果、業報、無法逃避的循環" },
+      { name: "秋天牌", meaning: "成果、收割期、回報時刻" },
+      { name: "冬天牌", meaning: "冷靜、封閉、沉潛與整理" },
+      { name: "獵槍牌", meaning: "武器、攻擊、防衛、主動出擊" },
+      { name: "火爐牌", meaning: "熱情、內在能量、爆發力" },
+      { name: "兔子牌", meaning: "敏捷、機靈、柔弱中的力量" },
+      { name: "廟宇牌", meaning: "靜心、靈性修行、信仰之地" },
+      { name: "教堂牌", meaning: "承諾、神聖關係、儀式感" },
+      { name: "天使牌", meaning: "保護、光明、指引與守護" },
+      { name: "惡魔牌", meaning: "誘惑、掌控、黑暗情結" },
+      { name: "米飯牌", meaning: "溫飽、人情、庶民支撐力" },
+      { name: "冥想牌", meaning: "安靜、自省、靈魂調頻" },
+      { name: "音符牌", meaning: "活潑、可愛、表達與節奏" },
+      { name: "手機牌", meaning: "聯繫、訊息、溝通與社交媒介" },
+      { name: "裂心牌", meaning: "傷心、失落、分手或痛苦經歷" }
+    ];
+
+    function drawCards(count) {
+      const shuffled = [...cards].sort(() => Math.random() - 0.5);
+      const drawn = shuffled.slice(0, count);
+      const resultDiv = document.getElementById('result');
+      resultDiv.innerHTML = `
+        <h2>你抽到的 ${count} 張牌：</h2>
+        <ul>
+          ${drawn.map(card => `<li><strong>${card.name}</strong>：${card.meaning}</li>`).join('')}
+        </ul>
+        <button onclick="drawCards(${count})">重新抽 ${count} 張</button>
+      `;
+    }
+  </script>
+</body>
+</html>
