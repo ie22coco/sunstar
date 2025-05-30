@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sunstar 日月星牌占卜系統</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+      background-color: #fefefe;
+      max-width: 600px;
+      margin: auto;
+    }
+    h1 {
+      text-align: center;
+    }
+    .result {
+      margin-top: 2rem;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      margin: 10px 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🔮 Sunstar 日月星占卜系統</h1>
+  <p>請選擇要抽幾張牌：</p>
+  <button onclick="drawCards(3)">抽 3 張</button>
+  <button onclick="drawCards(5)">抽 5 張</button>
+
+  <div class="result" id="result"></div>
+
+  <script>
+    const cards = [
+      { name: "魔法書牌", meaning: "洞察本質、靈性知識、隱藏真相" },
+      { name: "前世牌", meaning: "前世記憶、業力連結、靈魂來源" },
+      { name: "車子牌", meaning: "行動、移動、前進的力量" },
+      { name: "房子牌", meaning: "家庭、安全感、內在結構" },
+      { name: "智慧牌", meaning: "學習、智慧與指引" },
+      { name: "糾結牌", meaning: "猶豫、選擇困難、情緒拉扯" },
+      { name: "小偷牌", meaning: "隱藏行動、竊取、聰明脫身" },
+      { name: "鱷魚牌", meaning: "潛伏、攻擊性、壓抑的情緒" },
+      { name: "貓咪牌", meaning: "觀察者、神秘、可愛又警覺" },
+      { name: "刀牌", meaning: "衝突、割捨、突發事件" },
+      { name: "床牌", meaning: "親密、休息、身體交流" },
+      {
