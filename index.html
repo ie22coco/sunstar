@@ -1,19 +1,20 @@
-fetch("https://api.openai.com/v1/chat/completions", {
+const prompt = `
+你是一位星牌占卜師，根據抽到的牌：${drawnCards.join("、")}，
+請給出一段完整的綜合靈性解讀，不需逐張牌義，也不需列出牌名，語氣溫柔而堅定。
+星牌邏輯包括：日月星三奇、狼＋火爐＋錢幣等特組組合…
+`;
+
+const response = await fetch("https://api.openai.com/v1/chat/completions", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
-    "Authorization": "Bearer YOUR_API_KEY"
+    "Authorization": `Bearer ${your_API_key}`
   },
   body: JSON.stringify({
     model: "gpt-4",
     messages: [
-      { role: "system", content: "你是一位神秘的塔羅占卜師，善於綜合解讀星牌。" },
-      { role: "user", content: "抽到：狼牌、火爐牌、錢幣袋牌，請給出一段靈性占卜解讀。" }
+      { role: "system", content: "你是靈性占卜師，使用星牌系統進行占卜。" },
+      { role: "user", content: prompt }
     ]
   })
-})
-.then(res => res.json())
-.then(data => {
-  const result = data.choices[0].message.content;
-  document.getElementById("result").innerText = result;
 });
