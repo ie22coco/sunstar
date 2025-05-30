@@ -1,86 +1,19 @@
-<!DOCTYPE html>
-<html lang="zh-Hant">
-<head>
-  <meta charset="UTF-8">
-  <title>日月星智能占卜</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      font-family: sans-serif;
-      padding: 2rem;
-      background: linear-gradient(to right top, #fdf6e3, #fceabb);
-      color: #333;
-    }
-    h1 {
-      text-align: center;
-    }
-    .btn-group {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-    }
-    button {
-      padding: 0.5rem 1rem;
-      font-size: 1.2rem;
-      cursor: pointer;
-      border-radius: 8px;
-      border: none;
-      background-color: #ffd700;
-    }
-    .result {
-      margin-top: 2rem;
-      white-space: pre-wrap;
-      background-color: #fff8dc;
-      padding: 1rem;
-      border-radius: 12px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-    }
-  </style>
-</head>
-<body>
-  <h1>🔮 日月星智能占卜系統</h1>
-  <div class="btn-group">
-    <button onclick="drawCards(3)">抽 3 張</button>
-    <button onclick="drawCards(5)">抽 5 張</button>
-  </div>
-  <div class="result" id="result"></div>
-
-  <script>
-    const cards = [
-      "魔法書牌", "前世牌", "車子牌", "房子牌", "智慧牌", "糾結牌", "小偷牌", "鱷魚牌", "貓咪牌", "刀牌",
-      "床牌", "老鷹牌", "嬰兒牌", "狼牌", "獅子牌", "星星牌", "審判牌", "狗狗牌", "法院牌", "花園牌",
-      "休止符牌", "選擇路口牌", "老鼠牌", "愛心牌", "春天牌", "度假村牌", "信封牌", "男人牌", "女人牌", "錢幣袋牌",
-      "太陽牌", "月亮牌", "豐盛牌", "稻米牌", "夏天牌", "業力牌", "秋天牌", "冬天牌", "獵槍牌", "火爐牌",
-      "兔子牌", "廟宇牌", "教堂牌", "天使牌", "惡魔牌", "米飯牌", "冥想牌", "音符牌", "手機牌", "裂心牌"
-    ];
-
-    function drawCards(count) {
-      const selected = [...cards].sort(() => Math.random() - 0.5).slice(0, count);
-      let reading = interpret(selected);
-      document.getElementById("result").innerText = `你抽到的牌：\n${selected.join('、')}\n\n🔮 智能綜合解讀：\n${reading}`;
-    }
-
-    function interpret(cardsDrawn) {
-      // 基本的特組智能邏輯樣本，可擴充
-      const s = cardsDrawn;
-      const has = name => s.includes(name);
-
-      if (has("太陽牌") && has("月亮牌") && has("星星牌")) {
-        return "你抽到『日月星三奇』！象徵天地人合一，大吉之兆，萬事順利。";
-      }
-      if (has("老鼠牌") && (has("稻米牌") || has("米飯牌"))) {
-        return "這是『老鼠愛大米』的組合，原本的困難會有意想不到的援助，苦中作樂，逆境得福。";
-      }
-      if (has("狼牌") && has("火爐牌") && has("錢幣袋牌")) {
-        return "你正處於爆發財運的階段。狼代表衝勁，火爐代表能量，錢幣象徵收穫。行動就有成果。";
-      }
-      if (has("裂心牌") && has("愛心牌")) {
-        return "你的感情正經歷愛與痛的交織，這是成長與放下的訊號，別忘了自我療癒。";
-      }
-      // 一般解讀
-      return "這次的牌組顯示你正處在一段轉變期，請信任直覺、擁抱改變，你的選擇將帶來重要影響。";
-    }
-  </script>
-</body>
-</html>
+fetch("https://api.openai.com/v1/chat/completions", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "Authorization": "Bearer YOUR_API_KEY"
+  },
+  body: JSON.stringify({
+    model: "gpt-4",
+    messages: [
+      { role: "system", content: "你是一位神秘的塔羅占卜師，善於綜合解讀星牌。" },
+      { role: "user", content: "抽到：狼牌、火爐牌、錢幣袋牌，請給出一段靈性占卜解讀。" }
+    ]
+  })
+})
+.then(res => res.json())
+.then(data => {
+  const result = data.choices[0].message.content;
+  document.getElementById("result").innerText = result;
+});
